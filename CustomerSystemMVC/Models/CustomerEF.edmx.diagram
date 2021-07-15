@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="CustomerEF.客戶聯絡人" Width="1.5" PointX="1.125" PointY="1.875" IsExpanded="true" />
         <AssociationConnector Association="CustomerEF.FK_客戶銀行資訊_客戶資料" ManuallyRouted="false" />
         <AssociationConnector Association="CustomerEF.FK_客戶聯絡人_客戶資料" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CustomerEF.客戶View表" Width="1.5" PointX="4" PointY="4.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
