@@ -1,4 +1,4 @@
-﻿@model CustomerSystemMVC.Models.客戶資料
+﻿@model CustomerSystemMVC.ViewModels.客戶資料Edit
 
 @{
     ViewBag.Title = "Edit";
@@ -12,11 +12,9 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>客戶資料</h4>
+        <h4>客戶資料Edit</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.客戶名稱, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
