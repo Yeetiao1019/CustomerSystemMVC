@@ -18,9 +18,18 @@ namespace CustomerSystemMVC.Controllers
         private Entities db = new Entities();
 
         // GET: 客戶資料
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.客戶資料.ToList());
+            var customer =      //定義查詢語法
+                from c in db.客戶資料
+                select c;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customer = customer.Where(c => c.客戶名稱.Contains(searchString));
+            }
+
+            return View(customer);
         }
 
         // GET: 客戶資料/Details/5
