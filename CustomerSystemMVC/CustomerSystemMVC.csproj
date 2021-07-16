@@ -179,6 +179,8 @@
     <Compile Include="ValidateAttributes\PhoneNumberAttribute.cs" />
     <Compile Include="ViewModels\客戶資料Create.cs" />
     <Compile Include="ViewModels\客戶資料Edit.cs" />
+    <Compile Include="ViewModels\客戶銀行資訊Edit.cs" />
+    <Compile Include="ViewModels\客戶銀行資訊Create.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -245,6 +247,7 @@
     <Content Include="Views\客戶資料\Create.cshtml" />
     <Content Include="Views\客戶資料\Edit.cshtml" />
     <Content Include="Views\客戶資料清單\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\客戶Id.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

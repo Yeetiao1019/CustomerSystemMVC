@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CustomerSystemMVC.Models;
+using CustomerSystemMVC.ViewModels;
+using Omu.ValueInjecter;
 
 namespace CustomerSystemMVC.Controllers
 {
@@ -48,10 +50,18 @@ namespace CustomerSystemMVC.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,客戶Id,銀行名稱,銀行代碼,分行代碼,帳戶名稱,帳戶號碼")] 客戶銀行資訊 客戶銀行資訊)
+        public ActionResult Create( 客戶銀行資訊Create 客戶銀行資訊Create)
         {
+            客戶銀行資訊 客戶銀行資訊 = new 客戶銀行資訊();
             if (ModelState.IsValid)
             {
+                客戶銀行資訊.客戶Id = 客戶銀行資訊Create.客戶Id;
+                客戶銀行資訊.銀行名稱 = 客戶銀行資訊Create.銀行名稱;
+                客戶銀行資訊.銀行代碼 = 客戶銀行資訊Create.銀行代碼;
+                客戶銀行資訊.分行代碼 = 客戶銀行資訊Create.分行代碼;
+                客戶銀行資訊.帳戶名稱 = 客戶銀行資訊Create.帳戶名稱;
+                客戶銀行資訊.帳戶號碼 = 客戶銀行資訊Create.帳戶號碼;
+                
                 db.客戶銀行資訊.Add(客戶銀行資訊);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -73,8 +83,11 @@ namespace CustomerSystemMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
-            return View(客戶銀行資訊);
+            客戶銀行資訊Edit 客戶銀行資訊Edit = new 客戶銀行資訊Edit();
+            客戶銀行資訊Edit.InjectFrom(客戶銀行資訊);
+
+            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊Edit.客戶Id);
+            return View(客戶銀行資訊Edit);
         }
 
         // POST: 客戶銀行資訊/Edit/5
@@ -82,16 +95,17 @@ namespace CustomerSystemMVC.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶Id,銀行名稱,銀行代碼,分行代碼,帳戶名稱,帳戶號碼")] 客戶銀行資訊 客戶銀行資訊)
+        public ActionResult Edit(int? id, 客戶銀行資訊Edit 客戶銀行資訊Edit)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(客戶銀行資訊).State = EntityState.Modified;
+                客戶銀行資訊 客戶銀行資訊 =  db.客戶銀行資訊.Find(id);
+                客戶銀行資訊.InjectFrom(客戶銀行資訊Edit);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
-            return View(客戶銀行資訊);
+            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊Edit.客戶Id);
+            return View(客戶銀行資訊Edit);
         }
 
         // GET: 客戶銀行資訊/Delete/5
