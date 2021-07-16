@@ -176,6 +176,7 @@
       <DependentUpon>CustomerEF.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidateAttributes\PhoneNumberAttribute.cs" />
     <Compile Include="ViewModels\客戶資料Create.cs" />
     <Compile Include="ViewModels\客戶資料Edit.cs" />
   </ItemGroup>

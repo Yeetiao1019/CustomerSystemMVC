@@ -106,7 +106,7 @@ namespace CustomerSystemMVC.Controllers
                 if (customerContact.Where(
                     e => e.Email == 客戶聯絡人.Email).Count() == 0)
                 {
-                    db.客戶聯絡人.Add(客戶聯絡人);
+                    db.Entry(客戶聯絡人).State = EntityState.Modified;
                     db.SaveChanges();
                 }
                 else
