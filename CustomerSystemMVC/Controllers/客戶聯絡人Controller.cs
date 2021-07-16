@@ -15,9 +15,57 @@ namespace CustomerSystemMVC.Controllers
         private Entities db = new Entities();
 
         // GET: 客戶聯絡人
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sort)
         {
+            ViewBag.JobTitleSort = sort == "JobTitle" ? "jobTitle_desc" : "JobTitle";
+            ViewBag.ContactNameSort = string.IsNullOrEmpty(sort) ? "contactName_desc" : "";
+            ViewBag.EmailSort = sort == "Email" ? "email_desc" : "Email";
+            ViewBag.CellPhoneSort = sort == "CellPhone" ? "cellPhone_desc" : "CellPhone";
+            ViewBag.PhoneSort = sort == "Phone" ? "phone_desc" : "Phone";
+            ViewBag.CustomerNameSort = sort =="CustomerName" ? "customerName_desc" : "CustomerName";
+
             var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
+
+            switch (sort)
+            {
+                case "jobTitle_desc":
+                    客戶聯絡人 = 客戶聯絡人.OrderByDescending(c => c.職稱);
+                    break;
+                case "JobTitle":
+                    客戶聯絡人 = 客戶聯絡人.OrderBy(c => c.職稱);
+                    break;
+                case "contactName_desc":
+                    客戶聯絡人 = 客戶聯絡人.OrderByDescending(c => c.姓名);
+                    break;
+                case "email_desc":
+                    客戶聯絡人 = 客戶聯絡人.OrderByDescending(c => c.Email);
+                    break;
+                case "Email":
+                    客戶聯絡人 = 客戶聯絡人.OrderBy(c => c.Email);
+                    break;
+                case "cellPhone_desc":
+                    客戶聯絡人 = 客戶聯絡人.OrderByDescending(c => c.手機);
+                    break;
+                case "CellPhone":
+                    客戶聯絡人 = 客戶聯絡人.OrderBy(c => c.手機);
+                    break;
+                case "phone_desc":
+                    客戶聯絡人 = 客戶聯絡人.OrderByDescending(c => c.電話);
+                    break;
+                case "Phone":
+                    客戶聯絡人 = 客戶聯絡人.OrderBy(c => c.電話);
+                    break;
+                case "customerName_desc":
+                    客戶聯絡人 = 客戶聯絡人.OrderByDescending(c => c.客戶資料.客戶名稱);
+                    break;
+                case "CustomerName":
+                    客戶聯絡人 = 客戶聯絡人.OrderBy(c => c.客戶資料.客戶名稱);
+                    break;
+                default:
+                    客戶聯絡人 = 客戶聯絡人.OrderBy(c => c.姓名);
+                    break;
+            }
+
             var JobTitle =
                 (from j in db.客戶聯絡人
                  select new
@@ -26,6 +74,7 @@ namespace CustomerSystemMVC.Controllers
                      JobName = j.職稱
                  }).Distinct().ToList();    //職稱去重複
             List<SelectListItem> JobTitleList = new List<SelectListItem>();
+
             foreach (var j in JobTitle)
             {
                 JobTitleList.Add(new SelectListItem
@@ -35,7 +84,7 @@ namespace CustomerSystemMVC.Controllers
                 });
             }
 
-            if(!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 客戶聯絡人 = 客戶聯絡人.Where(c => c.職稱 == searchString);
             }

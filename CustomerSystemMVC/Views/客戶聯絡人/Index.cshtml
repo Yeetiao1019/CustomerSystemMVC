@@ -21,22 +21,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.職稱)
+            @Html.ActionLink("職稱", "Index", new { sort = ViewBag.JobTitleSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.姓名)
+            @Html.ActionLink("姓名", "Index", new { sort = ViewBag.ContactNameSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.ActionLink("Email", "Index", new { sort = ViewBag.EmailSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.手機)
+            @Html.ActionLink("	手機", "Index", new { sort = ViewBag.CellPhoneSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.電話)
+            @Html.ActionLink("	電話", "Index", new { sort = ViewBag.PhoneSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
+            @Html.ActionLink("	客戶名稱", "Index", new { sort = ViewBag.CustomerNameSort })
         </th>
         <th></th>
     </tr>
