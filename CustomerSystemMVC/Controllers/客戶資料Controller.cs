@@ -18,13 +18,60 @@ namespace CustomerSystemMVC.Controllers
         private Entities db = new Entities();
 
         // GET: 客戶資料
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString , string sort)
         {
+            ViewBag.CustomerNameSort = string.IsNullOrEmpty(sort) ? "customerName_desc" : "";
+            ViewBag.UniqueNumberSort = sort == "UniqueNumber" ? "uniqueNumber_desc" : "UniqueNumber";       //讓統編預設排序為遞減排序
+            ViewBag.PhoneSort = sort == "Phone"? "phone_desc" : "Phone";
+            ViewBag.FaxSort= sort == "Fax"? "fax_desc" : "Fax";
+            ViewBag.AddressSort = sort == "Address"? "address_desc" : "Address";
+            ViewBag.EmailSort = sort == "Email"? "email_desc" : "Email";
+
             var customer =      //定義查詢語法
                 from c in db.客戶資料
                 where c.刪除 != true
                 select c;
 
+            switch (sort)
+            {
+                case "customerName_desc":
+                    customer = customer.OrderByDescending(c => c.客戶名稱);
+                    break;
+                case "uniqueNumber_desc":
+                    customer = customer.OrderByDescending(c => c.統一編號);
+                    break;
+                case "UniqueNumber":
+                    customer = customer.OrderBy(c => c.統一編號);
+                    break;
+                case "phone_desc":
+                    customer = customer.OrderByDescending(c => c.電話);
+                    break;
+                case "Phone":
+                    customer = customer.OrderBy(c => c.電話);
+                    break;
+                case "fax_desc":
+                    customer = customer.OrderByDescending(c => c.傳真);
+                    break;
+                case "Fax":
+                    customer = customer.OrderBy(c => c.傳真);
+                    break;
+                case "address_desc":
+                    customer = customer.OrderByDescending(c => c.地址);
+                    break;
+                case "Address":
+                    customer = customer.OrderBy(c => c.地址);
+                    break;
+                case "email_desc":
+                    customer = customer.OrderByDescending(c => c.Email);
+                    break;
+                case "Email":
+                    customer = customer.OrderBy(c => c.Email);
+                    break;
+                default:
+                    customer = customer.OrderBy(c => c.客戶名稱);
+                    break;
+            }
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 customer = customer.Where(c => c.客戶名稱.Contains(searchString));

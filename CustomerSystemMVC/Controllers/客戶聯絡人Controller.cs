@@ -15,10 +15,33 @@ namespace CustomerSystemMVC.Controllers
         private Entities db = new Entities();
 
         // GET: 客戶聯絡人
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
-            return View(客戶聯絡人.ToList());
+            var JobTitle =
+                (from j in db.客戶聯絡人
+                 select new
+                 {
+                     JobId = j.職稱,
+                     JobName = j.職稱
+                 }).Distinct().ToList();    //職稱去重複
+            List<SelectListItem> JobTitleList = new List<SelectListItem>();
+            foreach (var j in JobTitle)
+            {
+                JobTitleList.Add(new SelectListItem
+                {
+                    Text = j.JobId,
+                    Value = j.JobName
+                });
+            }
+
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                客戶聯絡人 = 客戶聯絡人.Where(c => c.職稱 == searchString);
+            }
+
+            ViewBag.職稱 = JobTitleList;
+            return View(客戶聯絡人);
         }
 
         // GET: 客戶聯絡人/Details/5

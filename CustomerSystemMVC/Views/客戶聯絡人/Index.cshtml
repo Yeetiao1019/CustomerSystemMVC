@@ -9,6 +9,15 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())       //建立一個Form Tag，點擊 Submit 按鈕時，會將參數與 value 一起傳出去
+{
+    <p>
+        職稱：@Html.DropDownList("searchString", (IEnumerable<SelectListItem>)ViewBag.職稱, "請選擇", new { @id = "職稱List" })
+        <input type="submit" value="查詢" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
