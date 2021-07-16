@@ -52,8 +52,21 @@ namespace CustomerSystemMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.客戶聯絡人.Add(客戶聯絡人);
-                db.SaveChanges();
+                var customerContact =
+                    from c in db.客戶聯絡人
+                    where c.客戶Id == 客戶聯絡人.客戶Id
+                    select c;
+                if (customerContact.Where(
+                    e => e.Email == 客戶聯絡人.Email).Count() == 0)
+                {
+                    db.客戶聯絡人.Add(客戶聯絡人);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    TempData["ContactAlert"] = "此存在此Email。";
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -86,8 +99,20 @@ namespace CustomerSystemMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(客戶聯絡人).State = EntityState.Modified;
-                db.SaveChanges();
+                var customerContact =
+                  from c in db.客戶聯絡人
+                  where c.客戶Id == 客戶聯絡人.客戶Id
+                  select c;
+                if (customerContact.Where(
+                    e => e.Email == 客戶聯絡人.Email).Count() == 0)
+                {
+                    db.客戶聯絡人.Add(客戶聯絡人);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    TempData["ContactAlert"] = "此存在此Email。";
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
