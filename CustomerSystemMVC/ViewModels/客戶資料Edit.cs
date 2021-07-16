@@ -23,6 +23,7 @@ namespace CustomerSystemMVC.ViewModels
         [StringLength(100, ErrorMessage = "欄位長度不得大於 {1} 個字元")]
         public string 地址 { get; set; }
         [Required]
+        [EmailAddress]
         [StringLength(250, ErrorMessage = "欄位長度不得大於 {1} 個字元")]
         public string Email { get; set; }
     }

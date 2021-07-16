@@ -22,6 +22,7 @@ namespace CustomerSystemMVC.Controllers
         {
             var customer =      //定義查詢語法
                 from c in db.客戶資料
+                where c.刪除 != true
                 select c;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -165,7 +166,7 @@ namespace CustomerSystemMVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             客戶資料 客戶資料 = db.客戶資料.Find(id);
-            db.客戶資料.Remove(客戶資料);
+            客戶資料.刪除 = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

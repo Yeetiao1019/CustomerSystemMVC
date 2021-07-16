@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="3b7a96dba23b45aaa2d93e7a7223485b" Name="Diagram1">
         <EntityTypeShape EntityType="CustomerEF.sysdiagrams" Width="1.5" PointX="9.125" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CustomerEF.客戶資料" Width="1.5" PointX="3.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CustomerEF.客戶資料" Width="1.5" PointX="3.875" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CustomerEF.客戶銀行資訊" Width="1.5" PointX="6.375" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="CustomerEF.客戶聯絡人" Width="1.5" PointX="1.125" PointY="1.875" IsExpanded="true" />
         <AssociationConnector Association="CustomerEF.FK_客戶銀行資訊_客戶資料" ManuallyRouted="false" />
